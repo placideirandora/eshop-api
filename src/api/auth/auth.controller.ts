@@ -14,7 +14,7 @@ export class AuthController {
 
       const user = await userService.findUserByEmail(email);
 
-      if (!user) {
+      if (user) {
         return ResponseHandler.sendResponse(
           res,
           STATUS_CODES.CONFLICT,
