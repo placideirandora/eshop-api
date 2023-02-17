@@ -37,7 +37,7 @@ class UserHelper {
   getUserDataWithoutSensitiveInfo(user: IUser) {
     const { _id, firstName, lastName, email, accountType } = user;
     return {
-      _id,
+      id: _id,
       firstName,
       lastName,
       email,
