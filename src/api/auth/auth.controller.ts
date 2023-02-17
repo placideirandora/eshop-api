@@ -32,6 +32,15 @@ export class AuthController {
       const { email, password } = req.body as IUser;
 
       const user = await userService.findUserByEmail(email);
+
+      if (!user) {
+        return ResponseHandler.sendResponse(
+          res,
+          STATUS_CODES.NOT_FOUND,
+          'User with the email is not registered'
+        );
+      }
+
       const isPasswordCorrect = authHelper.compareHashedPasswords(
         password,
         user.password

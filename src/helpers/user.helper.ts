@@ -22,13 +22,7 @@ class UserHelper {
 
   signInUserRule() {
     return [
-      body('email').custom(async (email) => {
-        const user = await userService.findUserByEmail(email);
-        if (!user) {
-          return Promise.reject('User with the email does not exist');
-        }
-        return true;
-      }),
+      body('email').isEmail().withMessage('Invalid email').notEmpty(),
       body('password', 'password is required').notEmpty(),
     ];
   }
