@@ -10,12 +10,22 @@ import userService from '../user/user.service';
 export class AuthController {
   static async registerUser(req: Request, res: Response) {
     try {
-      const { password } = req.body as IUser;
+      const { email, password } = req.body as IUser;
+
+      const user = await userService.findUserByEmail(email);
+
+      if (!user) {
+        return ResponseHandler.sendResponse(
+          res,
+          STATUS_CODES.CONFLICT,
+          'User with the same email is already registered'
+        );
+      }
+
       const hashedPassword = authHelper.hashPassword(password);
       req.body.password = hashedPassword;
 
-      const user = await userService.createUser(req.body);
-      delete user.password;
+      await userService.createUser(req.body);
 
       return ResponseHandler.sendResponse(
         res,
