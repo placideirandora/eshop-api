@@ -11,3 +11,9 @@ authRouter.post(
   validate(userHelper.createUserRule()),
   AuthController.registerUser
 );
+
+authRouter.post(
+  '/signin',
+  validate(userHelper.signInUserRule()),
+  AuthController.signInUser
+);

@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 import { environment } from '../config/environment';
 
 export interface IGenerateToken {
-  id: number;
+  id: string;
   firstName: string;
   lastName: string;
   accountType: string;

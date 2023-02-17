@@ -1,4 +1,6 @@
 import { body } from 'express-validator';
+
+import { IUser } from '../data/user.model';
 import userService from '../api/user/user.service';
 
 class UserHelper {
@@ -17,6 +19,30 @@ class UserHelper {
       body('password', 'password is required').notEmpty(),
       body('accountType', 'acountType is required').notEmpty(),
     ];
+  }
+
+  signInUserRule() {
+    return [
+      body('email').custom(async (email) => {
+        const user = await userService.findUserByEmail(email);
+        if (!user) {
+          return Promise.reject('User with the email does not exist');
+        }
+        return true;
+      }),
+      body('password', 'password is required').notEmpty(),
+    ];
+  }
+
+  getUserDataWithoutSensitiveInfo(user: IUser) {
+    const { _id, firstName, lastName, email, accountType } = user;
+    return {
+      _id,
+      firstName,
+      lastName,
+      email,
+      accountType,
+    };
   }
 }
 
