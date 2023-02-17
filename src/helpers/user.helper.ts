@@ -1,7 +1,5 @@
 import { body } from 'express-validator';
 
-import userService from '../api/user/user.service';
-
 class UserHelper {
   createUserRule() {
     return [
@@ -15,7 +13,7 @@ class UserHelper {
 
   signInUserRule() {
     return [
-      body('email').isEmail().withMessage('Invalid email').notEmpty(),
+      body('email', 'email is required').notEmpty(),
       body('password', 'password is required').notEmpty(),
     ];
   }
