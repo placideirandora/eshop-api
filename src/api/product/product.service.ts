@@ -18,7 +18,7 @@ class ProductService {
 
   async getProducts(): Promise<IProduct[] | []> {
     const products = await Product.find()
-      .sort({ title: -1 })
+      .sort({ name: -1 })
       .populate({
         path: 'seller',
         select: '_id firstName lastName',

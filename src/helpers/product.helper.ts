@@ -6,7 +6,7 @@ import userService from '../api/user/user.service';
 class ProductHelper {
   createProductRule() {
     return [
-      body('title').exists().withMessage('title is required').notEmpty(),
+      body('name').exists().withMessage('name is required').notEmpty(),
       body('price')
         .exists()
         .withMessage('price is required')
@@ -40,7 +40,7 @@ class ProductHelper {
   transformReturnedProduct(product) {
     const {
       _id,
-      title,
+      name,
       price,
       category,
       manufacturingDate,
@@ -50,7 +50,7 @@ class ProductHelper {
     } = product;
     return {
       id: _id,
-      title,
+      name,
       price,
       category,
       manufacturingDate,

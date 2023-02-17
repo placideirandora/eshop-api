@@ -10,7 +10,7 @@ type ProductCategory =
 
 export interface IProduct extends Document {
   _id: string;
-  title: string;
+  name: string;
   price: number;
   shortDescription: string;
   category: ProductCategory;
@@ -20,7 +20,7 @@ export interface IProduct extends Document {
 }
 
 const ProductSchema: Schema = new Schema({
-  title: {
+  name: {
     type: String,
     required: true,
   },
