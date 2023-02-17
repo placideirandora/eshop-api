@@ -1,7 +1,6 @@
 import { Types } from 'mongoose';
 import { body } from 'express-validator';
 
-import { IProduct } from '../data/Product.model';
 import userService from '../api/user/user.service';
 
 class ProductHelper {
@@ -38,7 +37,7 @@ class ProductHelper {
     ];
   }
 
-  transformReturnedProduct(product: IProduct) {
+  transformReturnedProduct(product) {
     const {
       _id,
       title,

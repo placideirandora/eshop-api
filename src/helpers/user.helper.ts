@@ -1,6 +1,5 @@
 import { body } from 'express-validator';
 
-import { IUser } from '../data/user.model';
 import userService from '../api/user/user.service';
 
 class UserHelper {
@@ -34,7 +33,7 @@ class UserHelper {
     ];
   }
 
-  getUserDataWithoutSensitiveInfo(user: IUser) {
+  getUserDataWithoutSensitiveInfo(user) {
     const { _id, firstName, lastName, email, accountType } = user;
     return {
       id: _id,
