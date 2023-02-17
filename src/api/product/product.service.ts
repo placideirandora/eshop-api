@@ -3,7 +3,10 @@ import Product, { IProduct } from '../../data/product.model';
 class ProductService {
   async findProductById(id: string): Promise<IProduct | null> {
     const product = await Product.findOne({ _id: id })
-      .populate('seller')
+      .populate({
+        path: 'seller',
+        select: '_id firstName lastName',
+      })
       .exec();
     return product;
   }
@@ -16,7 +19,10 @@ class ProductService {
   async getProducts(): Promise<IProduct[] | []> {
     const products = await Product.find()
       .sort({ title: -1 })
-      .populate('seller')
+      .populate({
+        path: 'seller',
+        select: '_id firstName lastName',
+      })
       .exec();
     return products;
   }

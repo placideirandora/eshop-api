@@ -20,4 +20,22 @@ export class ProductController {
       return ResponseHandler.sendErrorResponse(res, error);
     }
   }
+
+  static async getProducts(req: Request, res: Response) {
+    try {
+      const products = await productService.getProducts();
+      const transformedProducts = products.map((product) =>
+        productHelper.transformReturnedProduct(product)
+      );
+
+      return ResponseHandler.sendResponse(
+        res,
+        STATUS_CODES.OK,
+        'Products retrieved',
+        { products: transformedProducts }
+      );
+    } catch (error) {
+      return ResponseHandler.sendErrorResponse(res, error);
+    }
+  }
 }

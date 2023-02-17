@@ -11,3 +11,5 @@ productRouter.post(
   validate(productHelper.createProductRule()),
   ProductController.createProduct
 );
+
+productRouter.get('/', ProductController.getProducts);
