@@ -16,15 +16,25 @@ class ProductService {
     return createdProduct;
   }
 
-  async getProducts(): Promise<IProduct[] | []> {
-    const products = await Product.find()
-      .sort({ name: -1 })
-      .populate({
+  async getProducts(
+    page: number,
+    limit: number
+  ): Promise<{
+    docs: IProduct[];
+    total: number;
+    totalPages: number;
+  }> {
+    const options = {
+      page: page,
+      limit: limit,
+      sort: { name: 1 },
+      populate: {
         path: 'seller',
         select: '_id firstName lastName',
-      })
-      .exec();
-    return products;
+      },
+    };
+    const { docs, total, totalPages } = await Product.paginate({}, options);
+    return { docs, total, totalPages };
   }
 }
 

@@ -1,4 +1,5 @@
-import { Document, model, Schema, Types } from 'mongoose';
+import mongoosePaginate from 'mongoose-paginate-v2';
+import { Document, Model, model, Schema, Types } from 'mongoose';
 
 type ProductCategory =
   | 'Electronics'
@@ -17,6 +18,10 @@ export interface IProduct extends Document {
   image: string;
   manufacturingDate: string;
   seller: Types.ObjectId;
+}
+
+interface IProductModel extends Model<IProduct & Document> {
+  paginate(query?: any, options?: any): Promise<any>;
 }
 
 const ProductSchema: Schema = new Schema({
@@ -51,6 +56,11 @@ const ProductSchema: Schema = new Schema({
   },
 });
 
-const Product = model<IProduct>('Product', ProductSchema);
+ProductSchema.plugin(mongoosePaginate);
+
+const Product: IProductModel = model<IProduct, IProductModel>(
+  'Product',
+  ProductSchema
+);
 
 export default Product;

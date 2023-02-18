@@ -21,7 +21,8 @@
     "express": "^4.18.2",
     "express-validator": "^6.15.0",
     "jsonwebtoken": "^9.0.0",
-    "mongoose": "^6.9.2"
+    "mongoose": "^6.9.2",
+    "mongoose-paginate-v2": "^1.7.1"
   },
   "devDependencies": {
     "@types/dotenv": "^8.2.0",

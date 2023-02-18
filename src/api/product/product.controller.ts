@@ -23,8 +23,11 @@ export class ProductController {
 
   static async getProducts(req: Request, res: Response) {
     try {
-      const products = await productService.getProducts();
-      const transformedProducts = products.map((product) =>
+      const { page = 1, limit = 10 } = req.query;
+      const { total, totalPages, docs } = await productService.getProducts(
+        Number(page), Number(limit)
+      );
+      const transformedProducts = docs.map((product) =>
         productHelper.transformReturnedProduct(product)
       );
 
@@ -32,7 +35,7 @@ export class ProductController {
         res,
         STATUS_CODES.OK,
         'Products retrieved',
-        { products: transformedProducts }
+        { products: transformedProducts, total, totalPages }
       );
     } catch (error) {
       return ResponseHandler.sendErrorResponse(res, error);
